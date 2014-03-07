@@ -1,13 +1,59 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from rango.models import Category, Page
+from rango.forms import CategoryForm, PageForm
+from django.core.urlresolvers import reverse
 
 def with_underscore(attribute):
 	return attribute.replace(' ', '_')
 
 def without_underscore(attribute):
 	return attribute.replace('_', ' ')
+
+def add_category(request):
+	context = RequestContext(request)
+
+	if request.method == 'POST':
+		form = CategoryForm(request.POST)
+
+		if form.is_valid():
+			form.save(commit=True)
+			return HttpResponseRedirect(reverse("index"))
+		else:
+			print form.errors
+	else:
+		form = CategoryForm()
+	
+	return render_to_response('rango/add_category.html', {'form':form}, context)
+
+def add_page(request, category_name_url):
+	context = RequestContext(request)
+
+	category_name = without_underscore(category_name_url)
+	if request.method == 'POST':
+		form = PageForm(request.POST)
+
+		if form.is_valid():
+			# Not all fields are automatically populated! So no commit right away, whatever that means, I guess we have to check a few fields first
+			page = form.save(commit=False)
+			try:
+				cat = Category.objects.get(name=category_name)
+				page.category = cat
+			except Category.DoesNotExist:
+				return render_to_response('rango/add_category.html', {}, context)
+
+			page.views = 0
+			page.save()
+			return HttpResponseRedirect(reverse('category', args=[category_name_url]))
+			#return category(request, category_name_url)
+		else:
+			print form.errors
+			return index(request)
+	else:
+		form = PageForm()
+	
+	return render_to_response('rango/add_page.html', {'category_name_url':category_name_url, 'category_name':category_name, 'form':form}, context)
 
 def index(request):
 	context = RequestContext(request)
