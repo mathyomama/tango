@@ -1,16 +1,20 @@
-<!DOCTYPE html>
+{% extends 'rango/base.html' %}
 
-{% load static %} <!-- New line -->
+{% load static %}
 
-<html>
-	<head>
-		<title>About</title>
-	</head>
+{% block title %}Rango: About{% endblock %}
 
-	<body>
-		<h1>This is what it's all about:</h1>
-		<p>Perhaps he didn't believe it would come, and perhaps he no longer cared. If that was true, he must have felt that he lost the old warm world, paid a high price for living too long with a single dream. He must have looked up at an unfamiliar sky through frightening leaves and shivered as he saw what a grotesque thing rose is, and how raw the sunlight was on th scacely created grass. A new world, material without being real, where poor ghosts, breathing dreams like air, drifted fortuitously about...like that ashen, fantastic figure drifting toward him through the amorphous trees.</p><p><strong>The Greate Gatsby</strong>, F. Scott Fiztgerald</p>
-		<p>{{ quote }}</p>
-		<a href="http://projecteuler.net" style="text-decoration:none;"><div style="text-align:center;"><img src="{% static 'about_us.jpg' %}" alt="Check-Mark Man" />Project Euler</div></a>
-	</body>
-</html>
+{% block body_block %}
+<div class="hero-unit">
+	<h1>About Rango</h1>
+	This is <strong>Rango's about page</strong>.<br />
+	You've visited the site on <strong>{{ visit_count }} occasions(s)</strong>.<br />
+
+	Here's a picture of Rango.<br />
+	<img src="{% static 'rango.jpg' %}" alt="Picture of Rango" />
+</div>
+<h1>This is what it's all about:</h1>
+<p>Perhaps he didn't believe it would come, and perhaps he no longer cared. If that was true, he must have felt that he lost the old warm world, paid a high price for living too long with a single dream. He must have looked up at an unfamiliar sky through frightening leaves and shivered as he saw what a grotesque thing rose is, and how raw the sunlight was on th scacely created grass. A new world, material without being real, where poor ghosts, breathing dreams like air, drifted fortuitously about...like that ashen, fantastic figure drifting toward him through the amorphous trees.</p><p><strong>The Greate Gatsby</strong>, F. Scott Fiztgerald</p>
+<p>{{ quote }}</p>
+<a href="http://projecteuler.net" style="text-decoration:none;"><div style="text-align:center;"><img src="{% static 'about_us.jpg' %}" alt="Check-Mark Man" />Project Euler</div></a>
+{% endblock %}

@@ -1,42 +1,42 @@
-<!DOCTYPE html>
+{% extends 'rango/base.html' %}
 
-{% load static %} <!-- New line -->
+{% load static %}
 
-<html>
+{% block body_block %}
+<div class="hero-unit">
+	<h1>Ready to Rango</h1>
+	<p>Find, Add, Share, and Rango useful links and resources.</p>
+</div>
 
-	<head>
-		<title>Rango</title>
-	</head>
-
-	<body>
-		<h1>Rango Says...hello world!</h1>
-
-		<p><a href="add_category/" style="text-decoration:none">Add new category</a></p>
-
+<div class="row-fluid">
+	<div class="span6">
 		<h2>Top Five Most Liked Categories</h2>
 		{% if categories_likes %}
-			<ul>
-				{% for category in categories_likes %}
-					<li><a href="category/{{ category.url }}">{{ category.name }}</a></li>
-				{% endfor %}
-			</ul>
+		<ul>
+			{% for category in categories_likes %}
+			<li><a href="category/{{ category.url }}">{{ category.name }}</a></li>
+			{% endfor %}
+		</ul>
 		{% else %}
-			<strong>There are no categories present</strong>
+		<strong>There are no categories present</strong>
 		{% endif %}
 
-		<h2>Top Five Most Viewed Categories</h2>
-		{% if categories_views %}
-			<ul>
-				{% for category in categories_views %}
-					<li><a href="category/{{ category.url }}">{{ category.name }}</a></li>
-				{% endfor %}
-			</ul>
+	</div>
+	<!--/span-->
+	<div class="span6">
+		<h2>Top Five Most Viewed Pages</h2>
+		{% if pages_views %}
+		<ul>
+			{% for page in pages_views %}
+			<li><a href="{{ page.url }}">{{ page.title }}</a></li>
+			{% endfor %}
+		</ul>
 		{% else %}
-			<strong>There are no categories present</strong>
+		<strong>There are no categories present</strong>
 		{% endif %}
-
-		<a href="/rango/about/">About</a><br />
-		<img src="{% static 'rango.jpg' %}" alt="Picture of Rango" /> <!-- New line -->
-	</body>
-
-</html>
+		
+	</div>
+	<!--/span-->
+</div>
+<!--/row-->
+{% endblock %}

@@ -8,7 +8,7 @@ def populate():
 			url="http://docs.python.org/2/tutorial/")
 
 	add_page(cat=python_cat,
-			title="How to Think List a Computer Scientist",
+			title="How to Think Like a Computer Scientist",
 			url="http://www.korokithakis.net/tutorials/python/")
 
 	add_page(cat=python_cat,

@@ -1,0 +1,12 @@
+{% extends 'rango/base.html' %}
+
+{% block title %}Rango: Categories{% endblock %}
+
+{% block body_block %}
+<h1>All the Categories</h1>
+<ul>
+	{% for category in all_categories %}
+	<li><a href="{{ category.url }}">{{ category.name }}</a></li>
+	{% endfor %}
+</ul>
+{% endblock %}
